@@ -3,14 +3,21 @@ const express = require('express');
 const routes = require('./routes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('../swagger');
+const pinoHttp = require('pino-http');
+const logger = require('./logger');
 
 // Initialize express app
 const app = express();
 
+app.use(pinoHttp({
+  logger,
+  genReqId: (req) => req.get('x-request-id') || undefined
+}));
+
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-API-Key', 'X-Request-Id']
 }));
 app.set('trust proxy', true);
 app.use('/docs', swaggerUi.serve, (req, res, next) => {

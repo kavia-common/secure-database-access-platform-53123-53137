@@ -4,9 +4,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'My Express API',
+      title: 'MCP Database Server (Express + PostgreSQL)',
       version: '1.0.0',
-      description: 'A simple Express API documented with Swagger',
+      description: 'Secure database access API demonstrating MCP development standards (parameterized SQL, pooling, RO/RW modes, API-key auth, structured logging).',
     }
   },
   apis: ['./src/routes/*.js'], // Path to the API docs
